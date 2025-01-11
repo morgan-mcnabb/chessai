@@ -1,7 +1,7 @@
 
 mod chessboard;
 mod chessboard_view;
-mod styles; // Ensure this correctly points to your styles module
+mod styles; 
 
 use chessboard_view::ChessBoardView;
 use iced::{
@@ -11,7 +11,7 @@ use iced::{
 pub fn main() -> iced::Result {
     ChessBot::run(Settings {
         window: window::Settings {
-            size: Size::new(480.0, 480.0), // Use `Size::new` instead of a tuple
+            size: Size::new(480.0, 480.0),
             resizable: false,
             decorations: true,
             ..window::Settings::default()
@@ -24,12 +24,12 @@ struct ChessBot {
     chessboard_view: ChessBoardView,
 }
 
-type Message = (); // Define Message as `()` since there are no messages yet
+type Message = (); 
 
 impl Application for ChessBot {
     type Executor = executor::Default;
     type Message = Message;
-    type Theme = Theme; // Default theme
+    type Theme = Theme; 
     type Flags = ();
 
     fn new(_flags: ()) -> (Self, Command<Self::Message>) {

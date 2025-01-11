@@ -7,7 +7,6 @@ pub struct ChessBoard {
 #[derive(Clone, Copy)]
 pub struct Square {
     pub color: Color,
-    // Future: You can add piece information here
 }
 
 impl ChessBoard {
@@ -23,9 +22,9 @@ impl ChessBoard {
             for col in 0..8 {
                 let is_light_square = (row + col) % 2 == 0;
                 squares[row][col].color = if is_light_square {
-                    Color::from_rgb(0.9, 0.9, 0.9) // Light squares
+                    Color::from_rgb(0.9, 0.9, 0.9) 
                 } else {
-                    Color::from_rgb(0.2, 0.2, 0.2) // Dark squares
+                    Color::from_rgb(0.2, 0.2, 0.2) 
                 };
             }
         }

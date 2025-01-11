@@ -46,7 +46,6 @@ impl ChessBoardView {
         Container::new(Text::new(""))
             .width(Length::Fixed(60.0))
             .height(Length::Fixed(60.0))
-            // Pass the custom style wrapped in `theme::Container::Custom`
             .style(theme::Container::Custom(Box::new(SquareContainer::new(square.color))))
             .into()
     }
