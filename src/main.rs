@@ -1,12 +1,8 @@
-// src/main.
-// src/main.rs
-
 mod chessboard;
 mod chessboard_view;
 mod styles;
 
 use chessboard_view::ChessBoardView;
-use iced::widget::svg::Svg;
 use iced::{executor, window, Application, Command, Element, Settings, Size, Theme};
 
 pub fn main() -> iced::Result {
