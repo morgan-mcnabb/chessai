@@ -20,6 +20,7 @@ pub enum PieceColor {
 pub struct Piece {
     pub piece_type: PieceType,
     pub color: PieceColor,
+    pub svg_path: &'static str,
 }
 
 pub struct ChessBoard {
@@ -33,6 +34,29 @@ pub struct Square {
 }
 
 impl Piece {
+    pub fn new(piece_type: PieceType, color: PieceColor) -> Self {
+        let svg_path = match (color, piece_type) {
+            (PieceColor::White, PieceType::King) => r"assets/white-king.svg",
+            (PieceColor::White, PieceType::Queen) => r"assets/white-queen.svg",
+            (PieceColor::White, PieceType::Rook) => r"assets/white-rook.svg",
+            (PieceColor::White, PieceType::Bishop) => r"assets/white-bishop.svg",
+            (PieceColor::White, PieceType::Knight) => r"assets/white-knight.svg",
+            (PieceColor::White, PieceType::Pawn) => r"assets/white-pawn.svg",
+            (PieceColor::Black, PieceType::King) => r"assets/black-king.svg",
+            (PieceColor::Black, PieceType::Queen) => r"assets/black-queen.svg",
+            (PieceColor::Black, PieceType::Rook) => r"assets/black-rook.svg",
+            (PieceColor::Black, PieceType::Bishop) => r"assets/black-bishop.svg",
+            (PieceColor::Black, PieceType::Knight) => r"assets/black-knight.svg",
+            (PieceColor::Black, PieceType::Pawn) => r"assets/black-pawn.svg",
+        };
+
+        Piece {
+            piece_type,
+            color,
+            svg_path,
+        }
+    }
+
     pub fn to_unicode(&self) -> &'static str {
         match (self.color, self.piece_type) {
             (PieceColor::White, PieceType::King) => "♔",
@@ -82,8 +106,8 @@ impl ChessBoard {
         match row {
             0 => {
                 // Black major pieces
-                Some(Piece {
-                    piece_type: match col {
+                Some(Piece::new(
+                    match col {
                         0 | 7 => PieceType::Rook,
                         1 | 6 => PieceType::Knight,
                         2 | 5 => PieceType::Bishop,
@@ -91,27 +115,21 @@ impl ChessBoard {
                         4 => PieceType::King,
                         _ => unreachable!(),
                     },
-                    color: PieceColor::Black,
-                })
+                    PieceColor::Black,
+                ))
             }
             1 => {
                 // Black pawns
-                Some(Piece {
-                    piece_type: PieceType::Pawn,
-                    color: PieceColor::Black,
-                })
+                Some(Piece::new(PieceType::Pawn, PieceColor::Black))
             }
             6 => {
                 // White pawns
-                Some(Piece {
-                    piece_type: PieceType::Pawn,
-                    color: PieceColor::White,
-                })
+                Some(Piece::new(PieceType::Pawn, PieceColor::White))
             }
             7 => {
                 // White major pieces
-                Some(Piece {
-                    piece_type: match col {
+                Some(Piece::new(
+                    match col {
                         0 | 7 => PieceType::Rook,
                         1 | 6 => PieceType::Knight,
                         2 | 5 => PieceType::Bishop,
@@ -119,8 +137,8 @@ impl ChessBoard {
                         4 => PieceType::King,
                         _ => unreachable!(),
                     },
-                    color: PieceColor::White,
-                })
+                    PieceColor::White,
+                ))
             }
             _ => None, // Empty squares
         }

@@ -1,12 +1,13 @@
+// src/main.
+// src/main.rs
 
 mod chessboard;
 mod chessboard_view;
-mod styles; 
+mod styles;
 
 use chessboard_view::ChessBoardView;
-use iced::{
-    executor, window, Application, Command, Element, Settings, Theme, Size,
-};
+use iced::widget::svg::Svg;
+use iced::{executor, window, Application, Command, Element, Settings, Size, Theme};
 
 pub fn main() -> iced::Result {
     ChessBot::run(Settings {
@@ -24,12 +25,12 @@ struct ChessBot {
     chessboard_view: ChessBoardView,
 }
 
-type Message = (); 
+type Message = ();
 
 impl Application for ChessBot {
     type Executor = executor::Default;
     type Message = Message;
-    type Theme = Theme; 
+    type Theme = Theme;
     type Flags = ();
 
     fn new(_flags: ()) -> (Self, Command<Self::Message>) {
@@ -56,5 +57,8 @@ impl Application for ChessBot {
     fn theme(&self) -> Theme {
         Theme::Dark
     }
-}
 
+    fn subscription(&self) -> iced::Subscription<Self::Message> {
+        iced::Subscription::none()
+    }
+}
