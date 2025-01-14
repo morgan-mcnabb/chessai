@@ -1,10 +1,11 @@
-
-use iced::{
-    widget::{Container, Row, Column, Text},
-    Alignment, Element, Length, theme,
-};
 use crate::chessboard::{ChessBoard, Square};
 use crate::styles::square_container::SquareContainer;
+use iced::{
+    theme,
+    widget::svg::{Handle, Svg},
+    widget::{Column, Container, Row, Text},
+    Alignment, Element, Length,
+};
 
 pub struct ChessBoardView {
     chess_board: ChessBoard,
@@ -18,14 +19,10 @@ impl ChessBoardView {
     }
 
     pub fn view(&self) -> Element<()> {
-        let mut rows = Column::new()
-            .spacing(0)
-            .align_items(Alignment::Center);
+        let mut rows = Column::new().spacing(0).align_items(Alignment::Center);
 
         for row in &self.chess_board.squares {
-            let mut cols = Row::new()
-                .spacing(0)
-                .align_items(Alignment::Center);
+            let mut cols = Row::new().spacing(0).align_items(Alignment::Center);
 
             for square in row {
                 cols = cols.push(self.square_view(square));
@@ -43,11 +40,30 @@ impl ChessBoardView {
     }
 
     fn square_view(&self, square: &Square) -> Element<()> {
-        Container::new(Text::new(""))
-            .width(Length::Fixed(60.0))
-            .height(Length::Fixed(60.0))
-            .style(theme::Container::Custom(Box::new(SquareContainer::new(square.color))))
-            .into()
+        if let Some(piece) = square.piece {
+            let svg_handle = Handle::from_path(piece.svg_path);
+            let svg = Svg::new(svg_handle)
+                .width(Length::Fill)
+                .height(Length::Fill);
+
+            Container::new(svg)
+                .padding(5)
+                .center_x()
+                .center_y()
+                .width(Length::Fixed(60.0))
+                .height(Length::Fixed(60.0))
+                .style(theme::Container::Custom(Box::new(SquareContainer::new(
+                    square.color,
+                ))))
+                .into()
+        } else {
+            Container::new(Text::new(""))
+                .width(Length::Fixed(60.0))
+                .height(Length::Fixed(60.0))
+                .style(theme::Container::Custom(Box::new(SquareContainer::new(
+                    square.color,
+                ))))
+                .into()
+        }
     }
 }
-
