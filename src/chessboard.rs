@@ -18,8 +18,8 @@ pub enum PieceColor {
 
 #[derive(Copy, Clone)]
 pub struct Piece {
-    piece_type: PieceType,
-    color: PieceColor,
+    pub piece_type: PieceType,
+    pub color: PieceColor,
 }
 
 pub struct ChessBoard {
