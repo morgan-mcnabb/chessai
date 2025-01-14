@@ -56,24 +56,8 @@ impl Piece {
             svg_path,
         }
     }
-
-    pub fn to_unicode(&self) -> &'static str {
-        match (self.color, self.piece_type) {
-            (PieceColor::White, PieceType::King) => "♔",
-            (PieceColor::White, PieceType::Queen) => "♕",
-            (PieceColor::White, PieceType::Rook) => "♖",
-            (PieceColor::White, PieceType::Bishop) => "♗",
-            (PieceColor::White, PieceType::Knight) => "♘",
-            (PieceColor::White, PieceType::Pawn) => "♙",
-            (PieceColor::Black, PieceType::King) => "♚",
-            (PieceColor::Black, PieceType::Queen) => "♛",
-            (PieceColor::Black, PieceType::Rook) => "♜",
-            (PieceColor::Black, PieceType::Bishop) => "♝",
-            (PieceColor::Black, PieceType::Knight) => "♞",
-            (PieceColor::Black, PieceType::Pawn) => "♟︎",
-        }
-    }
 }
+
 impl ChessBoard {
     pub fn new() -> Self {
         let squares = Self::initialize_squares();
